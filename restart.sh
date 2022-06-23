@@ -1,4 +1,4 @@
-#!/bin/csh -f
+#!/bin/sh
 
 # Copyright (c) 1992, 1995, 1996 Xerox Corporation.  All rights reserved.
 # Portions of this code were written by Stephen White, aka ghond.
