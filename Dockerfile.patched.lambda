@@ -3,7 +3,6 @@ LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
 LABEL version="1.8.1"
 LABEL description="This is a version 1.8.1 Lambdamoo server that runs the ext-xml (using Expat), Fileio, FUP, pAS9 and WAIF patches"
 LABEL patches="ext-xml (using Expat), Fileio, FUP, pAS9 and WAIF"
-EXPOSE 8888/tcp
 
 # build command: 
 # docker build --no-cache -f Dockerfile.patched.lambda -t wiredwizard/lambdamoo:1.8.1-Patched .
@@ -26,9 +25,11 @@ RUN chmod +x /usr/local/bin/moo
 RUN chmod 777 /usr/local/bin/moo
 
 ENV TZ="America/New_York"
+ENV PORT="8888"
+EXPOSE ${PORT}/tcp
 
 STOPSIGNAL SIGINT
 
 WORKDIR /home/moo
 ENTRYPOINT ["/tini", "-g", "-v", "--"]
-CMD ["restart", "moo", "8888"]
+CMD ["sh", "-c", "restart moo $PORT"]
