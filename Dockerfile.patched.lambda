@@ -8,6 +8,7 @@ LABEL patches="ext-xml (using Expat), Fileio, FUP, pAS9 and WAIF"
 # docker build --no-cache -f Dockerfile.patched.lambda -t wiredwizard/lambdamoo:1.8.1-Patched .
 
 RUN mkdir -p /home/moo/files
+RUN mkdir -p /home/moo/bin
 RUN mkdir /home/moo-init
 COPY ./moo.debian.patched /usr/local/bin/moo
 COPY ./restart.sh /usr/local/bin/restart
