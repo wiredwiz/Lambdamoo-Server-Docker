@@ -4,11 +4,11 @@ LABEL version="1.8.1"
 LABEL description="This is a version 1.8.1 Lambdamoo server packaged with a Lambdacore"
 
 # build command: 
-# docker build --no-cache -f Dockerfile.lambda -t wiredwizard/lambdamoo:1.8.1 .
+# docker build --no-cache -f "v1.8.1/Dockerfile.lambda" -t wiredwizard/lambdamoo:1.8.1 .
 
 RUN mkdir -p /home/moo/files
 RUN mkdir /home/moo-init
-COPY ./moo.debian /usr/local/bin/moo
+COPY ./v1.8.1/moo.debian /usr/local/bin/moo
 COPY ./restart.sh /usr/local/bin/restart
 COPY ./LambdaCore/* /home/moo/
 COPY ./LambdaCore/* /home/moo-init/

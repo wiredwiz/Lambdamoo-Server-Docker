@@ -1,17 +1,17 @@
 FROM debian:bullseye-20220622
 LABEL  org.opencontainers.image.authors="Thaddeus Ryker <thad@edgerunner.org>"
-LABEL version="1.8.1"
-LABEL description="This is a version 1.8.1 Lambdamoo server packaged with a minimal core"
+LABEL version="1.8.3"
+LABEL description="This is a version 1.8.3 Lambdamoo server packaged with a Lambdacore"
 
 # build command: 
-# docker build --no-cache -f Dockerfile.minimal -t wiredwizard/lambdamoo:1.8.1-Minimal .
+# docker build --no-cache -f "v1.8.3/Dockerfile.lambda" -t wiredwizard/lambdamoo:1.8.3 .
 
 RUN mkdir -p /home/moo/files
 RUN mkdir /home/moo-init
-COPY ./moo.debian /usr/local/bin/moo
+COPY ./v1.8.3/moo.debian /usr/local/bin/moo
 COPY ./restart.sh /usr/local/bin/restart
-COPY ./LambdaCoreMinimal/* /home/moo/
-COPY ./LambdaCoreMinimal/* /home/moo-init/
+COPY ./LambdaCore/* /home/moo/
+COPY ./LambdaCore/* /home/moo-init/
 
 #RUN apt-get update && apt-get install -y procps && rm -rf /var/lib/apt/lists/*
 
