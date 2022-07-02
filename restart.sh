@@ -31,9 +31,6 @@ if [ ! -r $1.db ]; then
 	fi
 fi
 
-mkdir -p files
-mkdir -p bin
-
 if [ -r $1.db.new ]; then
 	mv $1.db $1.db.old
 	mv $1.db.new $1.db
@@ -47,8 +44,8 @@ if [ -f $1.log ]; then
 fi
 
 echo `date`: RESTARTED >> $1.log
-echo cmd: moo -l $1.log $1.db $1.db.new $2
-moo -l $1.log $1.db $1.db.new $2
+echo executing: moo $1.log $1.db $1.db.new $2
+moo $1.db $1.db.new $2 2>&1 | tee -i -a $1.log
 
 ###############################################################################
 # $Log: restart,v $
