@@ -24,15 +24,12 @@ if [ ! -r $1.db ]; then
     if  [ -r ../moo-init/$1.db ]; then
 		cp ../moo-init/$1.db $1.db
 		echo "Database $1.db not found"
-		echo "Copying fresh Lambda core: $1.db"
+		echo "Copying fresh JH core: $1.db"
     else
 		echo "Unknown database: $1.db"
 		exit 1
 	fi
 fi
-
-mkdir -p files
-mkdir -p bin
 
 if [ -r $1.db.new ]; then
 	mv $1.db $1.db.old

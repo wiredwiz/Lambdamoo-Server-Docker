@@ -24,7 +24,7 @@ if [ ! -r $1.db ]; then
     if  [ -r ../moo-init/$1.db ]; then
 		cp ../moo-init/$1.db $1.db
 		echo "Database $1.db not found"
-		echo "Copying fresh database: $1.db"
+		echo "Copying fresh Minimal core: $1.db"
     else
 		echo "Unknown database: $1.db"
 		exit 1
