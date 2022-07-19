@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Copyright (c) 1992, 1995, 1996 Xerox Corporation.  All rights reserved.
 # Portions of this code were written by Stephen White, aka ghond.
@@ -15,8 +15,8 @@
 #   Palo Alto, CA 94304
 #   Pavel@Xerox.Com
 
-if [ $# -lt 1 -o $# -gt 2 ]; then
-	echo 'Usage: restart dbase-prefix [port]'
+if [ $# -lt 1 -o $# -gt 1 ]; then
+	echo 'Usage: restart dbase-prefix'
 	exit 1
 fi
 
@@ -24,12 +24,18 @@ if [ ! -r $1.db ]; then
     if  [ -r ../moo-init/$1.db ]; then
 		cp ../moo-init/$1.db $1.db
 		echo "Database $1.db not found"
-		echo "Copying fresh Minimal core: $1.db"
+		echo "Copying a fresh ${INCLUDED_CORE} core to $1.db"
     else
 		echo "Unknown database: $1.db"
 		exit 1
 	fi
 fi
+
+# Build our command line parameters
+. buildParameters
+
+mkdir -p files
+mkdir -p bin
 
 if [ -r $1.db.new ]; then
 	mv $1.db $1.db.old
@@ -43,12 +49,16 @@ if [ -f $1.log ]; then
 	rm $1.log
 fi
 
+echo executing: moo "${CONFIG_PARAMS[@]}" "${1}.db" "${1}.db.new" "${PORT_PARAMS[@]}" "2>&1 | tee -i -a" "${1}.log"
 echo `date`: RESTARTED >> $1.log
-echo executing: moo $1.log $1.db $1.db.new $2
-moo $1.db $1.db.new $2 2>&1 | tee -i -a $1.log
+moo "${CONFIG_PARAMS[@]}" "${1}.db" "${1}.db.new" "${PORT_PARAMS[@]}" 2>&1 | tee -i -a "${1}.log"
 
 ###############################################################################
 # $Log: restart,v $
+# Revision 3.0.0.0  1997/03/03 03:45:05  Thad Ryker
+# Modified for docker containerization
+# LambdaMOO 1.8.3
+#
 # Revision 1.1.1.1  1997/03/03 03:45:05  nop
 # LambdaMOO 1.8.0p5
 #
